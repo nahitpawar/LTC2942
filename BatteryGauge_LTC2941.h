@@ -101,10 +101,10 @@ class BatteryGauge
 public:
     BatteryGauge();
     
-    //uint8_t  get_status();
-    //uint8_t  get_control();
-    float    get_temperature();
-    uint32_t get_voltage();
+    uint8_t  get_status();
+    uint8_t  get_control();
+    float get_temperature();
+    float get_voltage();
     
     byte get_register(byte reg_addr);
     void set_register(unsigned char reg_addr, unsigned char reg_value);
