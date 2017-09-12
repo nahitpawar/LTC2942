@@ -1,6 +1,5 @@
 #include <Wire.h>
-
-
+#include "BatteryGauge_LTC2941.h"
 
 float BatteryGauge::get_temperature()
 {
@@ -31,19 +30,25 @@ void BatteryGauge::set_register(unsigned char reg_addr, unsigned char reg_value)
 {
     Wire.beginTransmission(LTC2942_ADDR);
     I2C_WRITE(reg_addr);  // set register pointer
-
     I2C_WRITE(reg_value);
-
     Wire.endTransmission();
 }
 
 unsigned char BatteryGauge::get_register(unsigned char reg_addr)
 {
-    Wire.beginTransmission(LTC2942_ADDR);
-    I2C_WRITE( (uint8_t)reg_addr);  // set register pointer
-    Wire.endTransmission();
+   unsigned char buf;
+   Wire.beginTransmission(LTC2942_ADDR);
+   I2C_WRITE( (uint8_t)reg_addr );                    // set register pointer
+   Wire.endTransmission(false);
+   
+   Wire.requestFrom(LTC2942_ADDR, 1);
 
-    Wire.requestFrom(DSRTCLib_CTRL_ID, 1);
-
-    return I2C_READ();
+   while( Wire.available() == 0 );
+   return I2C_READ();
 }
+
+BatteryGauge::BatteryGauge()
+{
+}
+
+

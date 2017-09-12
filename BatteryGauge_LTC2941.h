@@ -96,17 +96,18 @@ enum
     LTC2942_ALCC_ALERT    = (uint8_t)0x04  // Alert mode
 };
 
-class Battery_Gauge
+class BatteryGauge
 {
 public:
-    Battery_Gauge();
+    BatteryGauge();
     
     //uint8_t  get_status();
     //uint8_t  get_control();
-    //float    get_temperature();
+    float    get_temperature();
     uint32_t get_voltage();
     
-    unsigned char get_register(unsigned char reg_addr);
+    byte get_register(byte reg_addr);
     void set_register(unsigned char reg_addr, unsigned char reg_value);
 };
+
 
