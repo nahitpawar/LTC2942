@@ -11,6 +11,11 @@
 // LTC2492 address
 #define LTC2942_ADDR 0x64
 
+
+#define LTC2942_FULLSCALE_VOLTAGE      6000  // Full scale voltage in mv
+#define LTC2942_FULLSCALE_TEMPERATURE  60000   // 
+
+
 // LTC2942 register definitions
 #define REG_LTC2942_STATUS   (uint8_t)0x00  // (A) Status 
 #define REG_LTC2942_CONTROL  (uint8_t)0x01  // (B) Control
@@ -103,8 +108,13 @@ public:
     
     uint8_t  get_status();
     uint8_t  get_control();
-    float get_temperature();
-    float get_voltage();
+    
+    void analog_off();
+    void analog_on();
+    
+    uint16_t  get_temperature();  // Read temperature and shutdown analog section
+    uint16_t  get_voltage();      // Read voltage and shutdown analog section
+    uint16_t  get_charge();       // Read voltage and shutdown analog section
     
     byte get_register(byte reg_addr);
     void set_register(unsigned char reg_addr, unsigned char reg_value);
