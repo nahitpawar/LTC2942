@@ -1,5 +1,5 @@
 #include <Wire.h>
-#include "BatteryGauge_LTC2941.h"
+#include "BatteryGauge_LTC2942.h"
 
 uint16_t  BatteryGauge::get_charge()
 {
