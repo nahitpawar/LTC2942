@@ -8,7 +8,7 @@ uint16_t  BatteryGauge::get_charge()
   uint8_t  buf[2];
   
   // Shutdown analog section (Set shutdown bit in control register - B[0] = 1) before charge measurement
-  set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) | BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
+  //set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) | BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
 
   // Read charge value
   Wire.beginTransmission(LTC2942_ADDR);
@@ -23,7 +23,7 @@ uint16_t  BatteryGauge::get_charge()
   CD_buf = ( buf[1] | (buf[0] << 8) );
 
   // Enable analog section by clearing B[0] = 0 bit
-  set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) & ~BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
+  //set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) & ~BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
 
   return CD_buf;
   
@@ -35,7 +35,7 @@ uint16_t BatteryGauge::get_voltage()
     uint16_t IJ_buf=0;
     uint8_t  buf[2];
 
-    set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) & ~BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
+    //set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) & ~BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
 
     //for(int i=0; i<1000; ++i);
     
@@ -58,7 +58,7 @@ uint16_t BatteryGauge::get_voltage()
     bat_vol = ((uint32_t)IJ_buf * LTC2942_FULLSCALE_VOLTAGE);
     bat_vol >>= 16;
 
-    set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) | BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
+    //set_register( REG_LTC2942_CONTROL, ( get_register(REG_LTC2942_CONTROL) | BITM_REG_LTC2942_CONTROL_SHUTDOWN ) );
 
     return (uint16_t)bat_vol;
 }
